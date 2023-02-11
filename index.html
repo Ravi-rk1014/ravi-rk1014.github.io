@@ -1,0 +1,109 @@
+<html>
+  <head>  
+    <link href="https://fonts.googleapis.com/css2?family=Varta:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="index.css">
+  </head>
+  <body>
+    <div class="title"><h2>Wheel</h2>
+    <div class="container">
+      <div class="slider">
+        <div class="slides">
+          <div class="slide active">
+            <img src="wgu.png" alt="Wheel 1">
+          </div>
+          <div class="slide">
+            <img src="wjr.png" alt="Wheel 2">
+          </div>
+          <div class="slide">
+            <img src="wp6.png" alt="Wheel 3">
+        </div>
+        <div class="slide">
+            <img src="wpf.png" alt="Wheel 4">
+        </div>
+        </div>
+        <div class="controls">
+        <button class="left" id="left-arrow">❮</button>
+        <button class="right" id="right-arrow">❯</button>
+        </div>
+      </div>
+    </div></div>
+        
+  </body>
+      <script>
+ const slider = document.querySelector(".slider");
+const slides = document.querySelectorAll(".slide");
+const leftArrow = document.querySelector("#left-arrow");
+const rightArrow = document.querySelector("#right-arrow");
+let currentSlide = 0;
+let isZoomed = false;
+
+updateArrows();
+
+slider.addEventListener("click", function(event) {
+if (event.target.tagName === "IMG") {
+isZoomed = !isZoomed;
+slides[currentSlide].classList.toggle("active", isZoomed);
+}
+});
+
+leftArrow.addEventListener("click", function() {
+isZoomed = false;
+slides[currentSlide].classList.remove("active");
+currentSlide--;
+slides[currentSlide].classList.add("active");
+updateArrows();
+});
+
+rightArrow.addEventListener("click", function() {
+isZoomed = false;
+slides[currentSlide].classList.remove("active");
+currentSlide++;
+slides[currentSlide].classList.add("active");
+updateArrows();
+});
+
+function updateArrows() {
+leftArrow.disabled = currentSlide === 0;
+rightArrow.disabled = currentSlide === slides.length - 1;
+}
+document.addEventListener('keydown', (event) => {
+if (event.keyCode === 37) {
+leftArrow.click();
+} else if (event.keyCode === 39) {
+rightArrow.click();
+}
+});
+
+document.addEventListener('mouseover', function() {
+if (!this.classList.contains('active')) {
+activeWheel.classList.remove('active');
+bgImage.classList.remove('zoom');
+this.classList.add('active');
+bgImage.style.backgroundImage = `url(wheel-bg.jpg)`;
+setTimeout(() => {
+bgImage.classList.add('zoom');
+}, 100);
+}
+});
+const activeWheel = document.querySelector('.active');
+const bgImage = document.querySelector('.bg-image');
+
+slides.forEach(slide => {
+slide.addEventListener('click', function() {
+if (!this.classList.contains('active')) {
+activeWheel.classList.remove('active');
+bgImage.classList.remove('zoom');
+this.classList.add('active');
+bgImage.style.backgroundImage = `url(${this.querySelector('img').src})`;
+bgImage.classList.add('zoom');
+}
+});
+});
+
+      </script>    
+</html>
+       
+        
+        
+        
+        
